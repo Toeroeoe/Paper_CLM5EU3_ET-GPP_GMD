@@ -1,0 +1,3 @@
+[submodule "my_"]
+	path = my_
+	url = https://jugit.fz-juelich.de/my_code/my_py.git
