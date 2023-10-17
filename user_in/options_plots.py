@@ -66,12 +66,36 @@ EU3_maps = {
             
 }
 
+sources_colors = {
+
+        'i_color': {
+        'ICOS-WARMWINTER2020': 0,
+        'CLM5-EU3': 1,
+        'CLM5-EU3-pft': 2,
+        'GLASS-EU3': 3,
+        'ERA5L-EU3': 10,
+        'GLEAM-EU3': 6,
+        }
+}
+
+landcover_colors = {
+
+    'i_color': {
+        'ENF': 0,
+        'DBF': 1,
+        'GRA': 2,
+        'CRO': 3,
+        }
+
+}
+
+
 land_cover_moments = {
     
     'markers' : {
-        'ENF': 'o',
-        'DBF': '^',
-        'GRA': 's',
+        'ENF': 'o', 
+        'DBF': '^', 
+        'GRA': 's', 
         'CRO': 'P',
     },
 
@@ -81,7 +105,7 @@ land_cover_moments = {
         'CLM5-EU3-pft': 2,
         'GLASS-EU3': 3,
         'ERA5L-EU3': 4,
-        'GLEAM-EU3': 5,
+        'GLEAM-EU3': 6,
     },
 
     'init_xy': {
@@ -101,29 +125,130 @@ land_cover_moments = {
     },
 
     'xy': {
-        'sizes_marker': 120,
+        'sizes_marker': 100,
         'alpha': 0.7,
     },
 
     'marker_legend': {
         'marker_color': 'grey',
         'marker_size': 10,
-        'anchor': (0.5, 0), 
+        'anchor': (0.5, 0.5), 
         'markerfirst': True, 
         'fs_labels': 10,
         'handletextpad': 0.2,
         'columnspacing': 0.9, 
-        'loc': 'lower center',
+        'loc': 'center',
         'handlelength': 1.2,
     },
 
     'color_legend': {
-        'anchor': (0.5, 0), 
+        'anchor': (0.5, 0.5), 
         'markerfirst': True, 
         'fs_labels': 10,
         'handletextpad': 0.35,
         'columnspacing': 0.9, 
-        'loc': 'lower center',
+        'loc': 'center',
         'handlelength': 1.0,
-    }
+    },
+}
+
+rmse_landcover = {
+
+    'init_bar': {
+        'axhv_color': 'k',
+        'axhv_ls': '--',
+        'axhv_lw': 1,
+        'axhv_dashes': (4, 4),
+        'fs_title': 14,
+        'y_title': 1.05,
+        'fs_label': 12,
+        'fs_ticks': 10,
+        'ax_tag_x': 0.5,
+        'ax_tag_y': 0.93,
+    },
+
+    'bars': {
+        'alpha': 0.7,
+    },
+
+    'color_legend': {
+        'anchor': (0.5, 0.5), 
+        'markerfirst': True, 
+        'fs_labels': 10,
+        'handletextpad': 0.35,
+        'columnspacing': 0.9, 
+        'loc': 'center',
+        'handlelength': 1.0,
+        'nrows': 1 
+    },
+}
+
+
+doy_dist = {
+
+    'init_doy': {
+        'axhv_color': 'k',
+        'axhv_ls': '--',
+        'axhv_lw': 1,
+        'axhv_dashes': (4, 4),
+        'fs_title': 14,
+        'y_title': 1.05,
+        'fs_label': 10,
+        'fs_ticks': 10,
+        'ax_tag_x': 0.15,
+        'ax_tag_y': 0.93,
+        'xlabel': 'Day of year'
+    },
+
+    'init_dist': {
+        'axhv_color': 'k',
+        'axhv_ls': '--',
+        'axhv_lw': 1,
+        'axhv_dashes': (4, 4),
+        'fs_title': 14,
+        'y_title': 1.05,
+        'fs_label': 10,
+        'fs_ticks': 10,
+        'ax_tag_x': 0.15,
+        'ax_tag_y': 0.93,
+        'ylabel': 'Probability density'
+    },
+
+    'doy': {
+        'alpha': 0.8,
+        'lw': 2,
+    },
+
+    'doy_fill_args': {
+        'alpha': 0.3,
+    },
+
+    'dist': {
+        'alpha': 0.8,
+        'lw': 2.5,
+    },
+
+    'color_legend': {
+        'anchor': (0.5, 0.5), 
+        'markerfirst': True, 
+        'fs_labels': 10,
+        'handletextpad': 0.35,
+        'columnspacing': 0.9, 
+        'loc': 'center',
+        'handlelength': 1.0,
+        'nrows': 1 
+    },
+}
+
+pie_landcover = {
+    'color_legend': {
+        'anchor': (0.5, 0.5), 
+        'markerfirst': True, 
+        'fs_labels': 10,
+        'handletextpad': 0.35,
+        'columnspacing': 0.9, 
+        'loc': 'center',
+        'handlelength': 1.0,
+        'nrows': 1 
+    },
 }
