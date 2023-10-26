@@ -3,17 +3,17 @@
 
 # Settings
 
-name                        = 'CLOSE'
+name                        = 'CLOSE-Temp-Precip-SWdn-RH' # 'CLOSE-NEE-RE' 'CLOSE'
 
-run                         = '002'
+run                         = '001'
 
-sources_grids               = ['CLM5-EU3', 'CLM5-EU3-pft', 'GLASS-EU3', 'ERA5L-EU3', 'GLEAM-EU3']
+sources_grids               = ['COSMOREA6-EU3']# ['CLM5-EU3', 'CLM5-EU3-pft']#, 'GLASS-EU3']# 'ERA5L-EU3', 'GLEAM-EU3']
 
 sources_static              = ['CLM5-EU3-surf']
 
 sources_insitu              = ['ICOS-WARMWINTER2020']
 
-variables                   = ['GPP', 'ET']
+variables                   = ['Temp', 'Precip', 'SWdown', 'RH']
 
 year_start                  = 1995
 year_end                    = 2018

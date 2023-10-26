@@ -11,7 +11,6 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
         method_time_interp = 'mean'):
 
     from glob import glob
-    from itertools import product
     from matplotlib.backends.backend_pdf import PdfPages
 
     from my_.data_process.cells_df import src_var_cells_df, cell_static_info
@@ -28,9 +27,13 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     from my_.plot.custom import doy_dist_landcover
     from my_.plot.custom import pie_landcover
     from my_.plot.custom import doy_landcover
+    from my_.plot.custom import plot_ts
     from my_.plot.tables import single_site_model_benchmarks
+    from my_.plot.tables import landcover_model_benchmarks
 
-    from user_in.options_plots import EU3_maps, land_cover_moments, rmse_landcover, doy_dist, sources_colors, landcover_colors
+    from user_in.options_plots import EU3_maps, land_cover_moments, rmse_landcover
+    from user_in.options_plots import doy_dist, sources_colors, landcover_colors
+    from user_in.options_plots import station_ts
     from user_in.options_analyses import selected_landcover
     
 
@@ -59,10 +62,10 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     print('Load the files to dataframe')
     print('and resample to the chosen frequency...\n')
 
-    file_static                 = glob(f'out/csv/Static_data_{name}_*.csv')[0]
+    file_static                 = glob(f'out/{name}/csv/Static_data_*.csv')[0]
   
-    files_cells                 = [f'out/{file_format}/Extracted_{name}_{src}.{file_format}' for src in sources_grids]
-    files_insitu                = [f'out/{file_format}/Insitu_{name}_{src}.{file_format}' for src in sources_insitu]
+    files_cells                 = [f'out/{name}/{file_format}/Extracted_{src}.{file_format}' for src in sources_grids]
+    files_insitu                = [f'out/{name}/{file_format}/Insitu_{src}.{file_format}' for src in sources_insitu]
 
     df_cells                    = read_resample_save(case_name = name, files = files_cells, origin = 'Cells',
                                                     file_format = file_format, join = 'outer', offset_str = dst_time_str,
@@ -85,17 +88,16 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     lats_stations               = df_stations['lat']
     lons_stations               = df_stations['lon']
 
-    n_stations                  = len(names_stations)
-    n_variables                 = len(variables)
-
-    iterations                  = product(range(n_stations), range(n_variables))
-
     out_pdf                     = f'{out_path}/pdf/{run}/{name}.pdf'
 
     
     #plots = {'location_map', 'pie_landcover', 'xy_landcover', 'bar_rmse_landcover', 'doy_landcover', 'doy_dist_landcover', 'single_site_model_benchmarks'}
 
-    plots = {'single_site_model_benchmarks'}
+    #plots = {'single_site_model_benchmarks'}
+
+    #plots = {'single_site_model_benchmarks', 'landcover_model_benchmarks'}#, 'station_info'}
+
+    plots = {'xy_landcover', 'doy_dist_landcover', 'doy_landcover'}
 
     with PdfPages(out_pdf) as pdf:
 
@@ -132,7 +134,11 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
 
             if 'single_site_model_benchmarks' in plots:
 
-                single_site_model_benchmarks(df_merged, vv, sources_insitu[0], df_static)
+                single_site_model_benchmarks(df_merged, vv, sources_insitu[0], df_static, selected_landcover)
+                
+            if 'landcover_model_benchmarks' in plots:
+
+                landcover_model_benchmarks(df_merged, vv, sources_insitu[0], df_static, selected_landcover)
 
             if 'doy_dist_landcover' in plots:
 
@@ -140,7 +146,8 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
                                                         colors = sources_colors['i_color'], doy_init_args = doy_dist['init_doy'],
                                                         dist_init_args = doy_dist['init_dist'], doy_args = doy_dist['doy'],
                                                         doy_fill_args = doy_dist['doy_fill_args'], dist_args = doy_dist['dist'],
-                                                        color_legend_args= doy_dist['color_legend'])
+                                                        color_legend_args= doy_dist['color_legend'],
+                                                        do_line_bounds = False, do_fill = False)
                 save_png(fig4x, f'{out_path}/png/{run}/{vv}_doy-dist_landcover')
                 save_pdf(pdf, fig4x)
                 
@@ -164,25 +171,17 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
                 save_png(fig6x, f'{out_path}/png/{run}/{vv}_doy_landcover')
                 save_pdf(pdf, fig6x)
 
-        exit()
-        
-        #plot_var_agg_PFT(name, pdf, variables, target_units, sources_insitu, sources_grids, master_df, cells_data)
-        for i_station, i_var in iterations:
+            if 'station_info' in plots:
 
-            station             = data_stations['name'][i_station]
-            var                 = variables[i_var]        
+                for station in names_stations:
 
-            print('Loading cell and in-situ data for station ' + station)
-            print('and variable ' + var + '...\n')
+                    fig7xx          = plot_ts(df_merged, vv, station, colors = sources_colors['i_color'],
+                                              color_legend_args = doy_dist['color_legend'],
+                                              fig_args = station_ts['fig'], ts_init_args = station_ts['init'],
+                                              plot_args = station_ts['plot'])
+                
+                    save_png(fig7xx, f'{out_path}/png/{run}/{station}_{vv}_ts')
+                    save_pdf(pdf, fig7xx)
 
-            # Continue with columns (station-variables) that exist in the data
-            cols                = [col for col in master_df.columns if (station + '_' in col) & (var in col)]
-            ts                  = [master_df[col] for col in cols]
-
-            if i_var==0: plot_station_info(name, pdf, station, cells_data)
-            plot_timeseries(name, pdf, timeseries=ts, labels=cols, units=target_units[i_var])
-            plot_seasonal_stats(name, pdf, timeseries=ts, labels=cols, units=target_units[i_var])
-
-    print('###########')
-    print('That\'s it! Cell and in-situ data was processed and saved; Time-series were plotted. Ciao!')
+    print('That\'s it! Cell and in-situ data was processed and saved; Figures and plots were saved. Ciao!')
     print('___________')

@@ -75,6 +75,7 @@ sources_colors = {
         'GLASS-EU3': 3,
         'ERA5L-EU3': 10,
         'GLEAM-EU3': 6,
+        'COSMOREA6-EU3': 9,
         }
 }
 
@@ -216,11 +217,11 @@ doy_dist = {
 
     'doy': {
         'alpha': 0.8,
-        'lw': 2,
+        'lw': 2.5,
     },
 
     'doy_fill_args': {
-        'alpha': 0.3,
+        'alpha': 0.2,
     },
 
     'dist': {
@@ -249,6 +250,26 @@ pie_landcover = {
         'columnspacing': 0.9, 
         'loc': 'center',
         'handlelength': 1.0,
-        'nrows': 1 
+        'nrows': 1 ,
     },
 }
+
+station_ts = {
+    
+    'fig': {
+        'fx': 6.7,
+        'fy': 3.5,
+    },
+
+    'init': {
+        'y_title': 1.0,
+    },
+
+    'plot': {
+        'style': '-',
+        'lw': 1.5,
+        'alpha': 0.75,
+        'markersize': 3,
+        'marker': 'o'
+    }
+    }

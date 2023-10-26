@@ -2,7 +2,6 @@ README.md
 pyproject.toml
 Analyses/Grid_vs_Grid.py
 Analyses/Grids_vs_InSitu.py
-Analyses/__init__.py
 Analyses/test.py
 CLM5EU3_Ecosystem_Processes.egg-info/PKG-INFO
 CLM5EU3_Ecosystem_Processes.egg-info/SOURCES.txt
@@ -39,6 +38,7 @@ my_/plot/legend.py
 my_/plot/limits.py
 my_/plot/maps.py
 my_/plot/style.py
+my_/plot/tables.py
 my_/resources/landcover_pft.py
 my_/resources/sources.py
 my_/resources/units.py
