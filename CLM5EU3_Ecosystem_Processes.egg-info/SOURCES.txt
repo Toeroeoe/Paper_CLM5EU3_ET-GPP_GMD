@@ -49,6 +49,7 @@ my_/series/group.py
 my_/series/interpolate.py
 my_/series/time.py
 temp/check.py
+temp/test2.py
 user_in/options_analyses.py
 user_in/options_plots.py
 user_in/run_analyses.py

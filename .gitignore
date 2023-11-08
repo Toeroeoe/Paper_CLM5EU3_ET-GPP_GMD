@@ -4,3 +4,4 @@
 *.nc 
 *.parquet
 *.pyc
+*.out
