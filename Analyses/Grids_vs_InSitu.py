@@ -8,7 +8,7 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
         file_format: str = 'parquet',
         path_stations: str = 'gridded/csv_in', file_stations: str = 'stations.csv',
         year_start: int = 1995, year_end: int = 2018, dst_time_str: str = 'D',
-        method_time_interp = 'mean'):
+        method_time_interp = 'mean', plots: dict = {}):
 
     from glob import glob
     from matplotlib.backends.backend_pdf import PdfPages
@@ -78,7 +78,7 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     print('Load the insitu and cell files to a common dataframe')
     print('and load the static and station information data...\n')
     
-    df_merged                   = concat([df_insitu, df_cells], join = 'outer', axis = 1, sort = False)
+    df_merged                   = concat([df_insitu, df_cells], join = 'outer', axis = 1, sort = True)
 
 
     df_static                   = open_csv(file_static)
@@ -89,15 +89,6 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     lons_stations               = df_stations['lon']
 
     out_pdf                     = f'{out_path}/pdf/{run}/{name}.pdf'
-
-    
-    #plots = {'location_map', 'pie_landcover', 'xy_landcover', 'bar_rmse_landcover', 'doy_landcover', 'doy_dist_landcover', 'single_site_model_benchmarks'}
-
-    #plots = {'single_site_model_benchmarks'}
-
-    #plots = {'single_site_model_benchmarks', 'landcover_model_benchmarks'}#, 'station_info'}
-
-    plots = {'xy_landcover', 'doy_dist_landcover', 'doy_landcover'}
 
     with PdfPages(out_pdf) as pdf:
 
@@ -134,15 +125,15 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
 
             if 'single_site_model_benchmarks' in plots:
 
-                single_site_model_benchmarks(df_merged, vv, sources_insitu[0], df_static, selected_landcover)
+                single_site_model_benchmarks(name, df_merged, vv, sources_insitu[0], df_static, selected_landcover)
                 
             if 'landcover_model_benchmarks' in plots:
 
-                landcover_model_benchmarks(df_merged, vv, sources_insitu[0], df_static, selected_landcover)
+                landcover_model_benchmarks(name, df_merged, vv, sources_insitu[0], df_static, selected_landcover)
 
             if 'doy_dist_landcover' in plots:
 
-                fig4x               = doy_dist_landcover(df_merged, vv, sources_insitu, sources_grids, selected_landcover,
+                fig4x               = doy_dist_landcover(name, df_merged, vv, sources_insitu, sources_grids, selected_landcover,
                                                         colors = sources_colors['i_color'], doy_init_args = doy_dist['init_doy'],
                                                         dist_init_args = doy_dist['init_dist'], doy_args = doy_dist['doy'],
                                                         doy_fill_args = doy_dist['doy_fill_args'], dist_args = doy_dist['dist'],
