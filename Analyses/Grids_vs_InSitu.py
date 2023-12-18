@@ -13,23 +13,24 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     from glob import glob
     from matplotlib.backends.backend_pdf import PdfPages
 
-    from my_.data_process.cells_df import src_var_cells_df, cell_static_info
-    from my_.data_process.insitu_df import src_var_insitu_df
-    from my_.files.csv import open_csv
-    from my_.files.handy import read_resample_save, create_dirs
-    from my_.series.aggregate import concat
+    from my_data_process.cells_df import src_var_cells_df, cell_static_info
+    from my_data_process.insitu_df import src_var_insitu_df
+    from my_files.csv import open_csv
+    from my_files.handy import read_resample_save, create_dirs
+    from my_series.aggregate import concat
 
-    from my_.figures.save import save_png, save_pdf
+    from my_figures.save import save_png, save_pdf
 
-    from my_.plot.custom import map_EU3_point_locations
-    from my_.plot.custom import xy_landcover_moments
-    from my_.plot.custom import bar_rmse_landcover
-    from my_.plot.custom import doy_dist_landcover
-    from my_.plot.custom import pie_landcover
-    from my_.plot.custom import doy_landcover
-    from my_.plot.custom import plot_ts
-    from my_.plot.tables import single_site_model_benchmarks
-    from my_.plot.tables import landcover_model_benchmarks
+    from my_plot.custom import map_EU3_point_locations
+    from my_plot.custom import xy_landcover_moments
+    from my_plot.custom import bar_rmse_landcover
+    from my_plot.custom import doy_dist_landcover
+    from my_plot.custom import pie_landcover
+    from my_plot.custom import doy_landcover
+    from my_plot.custom import plot_ts
+    from my_plot.custom import map_EU3_point_locations_lc_hclim
+    from my_plot.tables import single_site_model_benchmarks
+    from my_plot.tables import landcover_model_benchmarks
 
     from user_in.options_plots import EU3_maps, land_cover_moments, rmse_landcover
     from user_in.options_plots import doy_dist, sources_colors, landcover_colors
@@ -87,6 +88,8 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
     names_stations              = df_stations['name']
     lats_stations               = df_stations['lat']
     lons_stations               = df_stations['lon']
+    landcover                   = df_static['landcover']
+    hydroclimate                = df_static['PRECTmms_COSMOREA6']
 
     out_pdf                     = f'{out_path}/pdf/{run}/{name}.pdf'
 
@@ -99,6 +102,16 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
                                                                  **EU3_maps['locations_map'])
         
             save_png(fig1, f'{out_path}/png/{run}/map_ICOS_locations')
+            save_pdf(pdf, fig1)
+
+        if 'location_lc_clim_map' in plots:
+        
+            fig1                    = map_EU3_point_locations_lc_hclim( lats_stations, lons_stations,
+                                                                        landcover, hydroclimate,
+                                                                        **EU3_maps['base'], **EU3_maps['lines'], 
+                                                                        **EU3_maps['locations_map'])
+        
+            save_png(fig1, f'{out_path}/png/{run}/map_ICOS_locations_lc_hclim')
             save_pdf(pdf, fig1)
 
         if 'pie_landcover' in plots:
@@ -120,7 +133,7 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
                                                         xy_init_args = land_cover_moments['init_xy'],
                                                         xy_args = land_cover_moments['xy'], marker_legend_args = land_cover_moments['marker_legend'],
                                                         color_legend_args = land_cover_moments['color_legend'])
-                save_png(fig3x, f'{out_path}/png/{run}/{vv}_xy_landcover_moments')
+                save_png(fig3x, f'{out_path}/png/{run}/{vv}_xy_landcover_moments', transparent = True)
                 save_pdf(pdf, fig3x)
 
             if 'single_site_model_benchmarks' in plots:
@@ -138,7 +151,7 @@ def run(name: str, run: str, sources_grids = [], sources_static = [],
                                                         dist_init_args = doy_dist['init_dist'], doy_args = doy_dist['doy'],
                                                         doy_fill_args = doy_dist['doy_fill_args'], dist_args = doy_dist['dist'],
                                                         color_legend_args= doy_dist['color_legend'],
-                                                        do_line_bounds = False, do_fill = False)
+                                                        do_line_bounds = False, do_fill = True)
                 save_png(fig4x, f'{out_path}/png/{run}/{vv}_doy-dist_landcover')
                 save_pdf(pdf, fig4x)
                 

@@ -5,11 +5,11 @@
 
 name                        = 'CLOSE-GPP' #'CLOSE-Temp-Precip-SWdn-RH' # 'CLOSE-NEE-RE' 'CLOSE'
 
-run                         = '003'
+run                         = '006'
 
-sources_grids               = ['CLM5-EU3', 'CLM5-EU3-pft', 'GLASS-EU3']#, 'ERA5L-EU3', 'GLEAM-EU3']
+sources_grids               = ['CLM5-EU3']#, 'ERA5L-EU3', 'GLEAM-EU3']
 
-sources_static              = ['CLM5-EU3-surf']
+sources_static              = []#'CLM5-EU3-surf', 'hydroclim-EU3']
 
 sources_insitu              = ['ICOS-WARMWINTER2020']
 
@@ -29,13 +29,14 @@ file_format                 = 'parquet'
 plots                       = {
                                 #'location_map',
                                 #'pie_landcover',
-                                'xy_landcover', 
-                                'doy_dist_landcover', 
-                                'doy_landcover', 
+                                #'xy_landcover', 
+                                #'doy_dist_landcover', 
+                                #'doy_landcover', 
                                 'single_site_model_benchmarks', 
-                                'landcover_model_benchmarks', 
+                                #'landcover_model_benchmarks', 
                                 #'station_info',
-                                'bar_rmse_landcover',
+                                #'bar_rmse_landcover',
+                                #'location_lc_clim_map',
                                 }
 
 

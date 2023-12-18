@@ -14,15 +14,15 @@ EU3_maps = {
             'lines': {
                 'xticks': [-20, 0, 20, 40],
                 'yticks': [20, 40, 60],
-                'lw_grid': 0.8,
-                'lw_coast': 0.8,
+                'lw_grid': 0.95,
+                'lw_coast': 0.95,
                 'ls_grid': '--',
                 'color_grid': 'grey',
                 'fs_label': 11,
             },
 
             'locations_map': {
-                'size_marker': 50,
+                'size_marker': 70,
                 'marker': 'x',
                 'color_marker': 'firebrick',
                 'alpha': 0.9,
@@ -110,11 +110,11 @@ land_cover_moments = {
     },
 
     'init_xy': {
-        'axhv_color': 'k',
+        'axhv_color': 'white',
         'axhv_ls': '--',
         'axhv_lw': 1,
         'axhv_dashes': (4, 4),
-        'diag_color': 'k',
+        'diag_color': 'white',
         'diag_ls': '--',
         'diag_lw': 0.7,
         'fs_title': 14,
@@ -127,15 +127,16 @@ land_cover_moments = {
 
     'xy': {
         'sizes_marker': 100,
-        'alpha': 0.7,
+        'alpha': 1,
     },
 
     'marker_legend': {
-        'marker_color': 'grey',
+        'marker_color': 'white',
         'marker_size': 10,
         'anchor': (0.5, 0.5), 
         'markerfirst': True, 
         'fs_labels': 10,
+        'labelcolor': 'white',
         'handletextpad': 0.2,
         'columnspacing': 0.9, 
         'loc': 'center',
@@ -188,7 +189,7 @@ rmse_landcover = {
 doy_dist = {
 
     'init_doy': {
-        'axhv_color': 'k',
+        #'axhv_color': 'dimgray',
         'axhv_ls': '--',
         'axhv_lw': 1,
         'axhv_dashes': (4, 4),
@@ -202,7 +203,7 @@ doy_dist = {
     },
 
     'init_dist': {
-        'axhv_color': 'k',
+        #'axhv_color': 'k',
         'axhv_ls': '--',
         'axhv_lw': 1,
         'axhv_dashes': (4, 4),
