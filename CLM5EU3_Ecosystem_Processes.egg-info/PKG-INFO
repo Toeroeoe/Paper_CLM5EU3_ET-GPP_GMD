@@ -1,5 +1,5 @@
 Metadata-Version: 2.1
-Name: CLM5EU3-Ecosystem-Processes
+Name: CLM5EU3_Ecosystem_Processes
 Version: 0.0.1
 Requires-Dist: requests
 Requires-Dist: importlib-metadata; python_version > "3.8"

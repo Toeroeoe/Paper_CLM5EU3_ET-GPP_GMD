@@ -18,16 +18,22 @@ EU3_maps = {
                 'lw_coast': 0.95,
                 'ls_grid': '--',
                 'color_grid': 'grey',
-                'fs_label': 11,
+                'fs_label': 12,
             },
 
             'locations_map': {
-                'size_marker': 70,
+                'size_marker': 50,
                 'marker': 'x',
                 'color_marker': 'firebrick',
                 'alpha': 0.9,
                 'zorder': 5,
             },
+
+            'lc_markers': {
+                    'ENF': 'o', 
+                    'DBF': '^', 
+                    'GRA': 's', 
+                    'CRO': 'P'},
 
             'diff_maps': {
                 'cmap': 'coolwarm_r',
@@ -57,6 +63,18 @@ EU3_maps = {
                 'v0': -50,
                 'v1': 50,
             },
+
+            'marker_legend': {
+                    'marker_color': 'gray',
+                    'marker_size': 10,
+                    'anchor': (0.5, 0.5), 
+                    'markerfirst': True, 
+                    'fs_labels': 10,
+                    'labelcolor': 'k',
+                    'handletextpad': 0.2,
+                    'columnspacing': 0.9, 
+                    'loc': 'center',
+                    'handlelength': 1.2, },
             
             'long_name_var' : 'Variance',
             'long_name_mean': 'Mean',
@@ -110,11 +128,11 @@ land_cover_moments = {
     },
 
     'init_xy': {
-        'axhv_color': 'white',
+        'axhv_color': 'k',
         'axhv_ls': '--',
         'axhv_lw': 1,
         'axhv_dashes': (4, 4),
-        'diag_color': 'white',
+        'diag_color': 'k',
         'diag_ls': '--',
         'diag_lw': 0.7,
         'fs_title': 14,
@@ -126,17 +144,17 @@ land_cover_moments = {
     },
 
     'xy': {
-        'sizes_marker': 100,
-        'alpha': 1,
+        'sizes_marker': 60,
+        'alpha': 0.75,
     },
 
     'marker_legend': {
-        'marker_color': 'white',
+        'marker_color': 'gray',
         'marker_size': 10,
         'anchor': (0.5, 0.5), 
         'markerfirst': True, 
         'fs_labels': 10,
-        'labelcolor': 'white',
+        'labelcolor': 'k',
         'handletextpad': 0.2,
         'columnspacing': 0.9, 
         'loc': 'center',
@@ -218,7 +236,7 @@ doy_dist = {
 
     'doy': {
         'alpha': 0.8,
-        'lw': 2.5,
+        'lw': 2.6,
     },
 
     'doy_fill_args': {
@@ -227,7 +245,7 @@ doy_dist = {
 
     'dist': {
         'alpha': 0.8,
-        'lw': 2.5,
+        'lw': 3,
     },
 
     'color_legend': {
