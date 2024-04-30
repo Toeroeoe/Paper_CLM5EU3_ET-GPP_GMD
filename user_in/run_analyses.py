@@ -7,7 +7,7 @@ name                        = 'CLOSE-GPP'
 
 run                         = '001'
 
-sources_grids               = ['CLM5-EU3', 'CLM5-EU3-pft','GLASS-EU3', 'ERA5L-EU3', 'GLEAM-EU3']
+sources_grids               = ['CLM5-EU3', 'CLM5-EU3-pft','GLASS-EU3']#, 'ERA5L-EU3', 'GLEAM-EU3']
 
 sources_static              = ['CLM5-EU3-surf', 'hydroclim-EU3']
 
@@ -27,18 +27,18 @@ file_stations               = 'stations.csv'
 file_format                 = 'parquet'
 
 plots                       = {
-                                #'location_map',
+                                'location_map',
                                 'pie_landcover',
                                 'pie_location_lc_clim_map',
-                                #'xy_landcover', 
-                                #'doy_dist_landcover',
+                                'xy_landcover', 
+                                'doy_dist_landcover',
                                 'doy_doy_landcover',
                                 'dist_landcover', 
-                                #'doy_landcover', 
-                                #'single_site_model_benchmarks', 
-                                #'landcover_model_benchmarks', 
-                                #'station_info',
-                                #'bar_rmse_landcover',
+                                'doy_landcover', 
+                                'single_site_model_benchmarks', 
+                                'landcover_model_benchmarks', 
+                                'station_info',
+                                'bar_rmse_landcover',
                                 'location_lc_clim_map',
                                 }
 
